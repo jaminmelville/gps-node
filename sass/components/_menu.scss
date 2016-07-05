@@ -1,0 +1,29 @@
+.menu {
+  font-size: 1.2rem;
+
+  &--white a{
+    color: white;
+  }
+  
+  @include breakpoint(small only) {
+    text-align: center;
+    float: none;
+    width: 100%;
+  }
+
+  @include breakpoint(medium) {
+    display: inline-block;
+    margin: 2rem 0;
+
+    a {
+      border-left: 1px solid white;
+      border-right: 1px solid white;
+    }
+
+    &--white a{
+      border-left: 1px solid $primary-color;
+      border-right: 1px solid $primary-color;
+    }
+  }
+
+}

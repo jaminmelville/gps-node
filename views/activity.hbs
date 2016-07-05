@@ -1,0 +1,32 @@
+<ul class='menu vertical medium-horizontal float-right' data-magellan>
+  <li>
+    <a href="#stats">Stats</a>
+  </li>
+  <li>
+    <a href="#tags">Tags</a>
+  </li>
+  <li>
+    <a href="#chart">Chart</a>
+  </li>
+  <li>
+    <a href="#map">Map</a>
+  </li>
+  </li>
+  <li>
+    <a href="#laps">Laps</a>
+  </li>
+  </li>
+  <li>
+    <a href="#notes">Notes</a>
+  </li>
+</ul>
+<div id='activity'></div>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDId3kWjcDVdlFOzosFkm78XaFAH8PWiYQ"></script>
+<script type='text/javascript'>
+  var activity = {{{toJSON activity}}};
+  var tags = {{{toJSON tags}}};
+  var records = {{{toJSON records}}};
+  var note = {{{toJSON note}}};
+  $(document).foundation();
+</script>
+<script src='/js/activity.js'></script>

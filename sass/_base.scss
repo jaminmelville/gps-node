@@ -1,0 +1,66 @@
+@import 'motion-ui';
+@import 'foundation';
+@import 'settings';
+
+@include motion-ui-transitions();
+@include foundation-everything();
+
+@import 'components/section';
+@import 'components/activities';
+@import 'components/menu';
+@import 'components/stats';
+@import 'components/filters';
+@import 'components/notes';
+@import 'components/tags';
+@import 'components/laps';
+
+@font-face {
+	font-family: 'Prototype';
+	font-style: normal;
+	font-weight: normal;
+	src: url('fonts/Prototype.eot');
+	src: local('☺'), url('fonts/Prototype.woff') format('woff'), url('fonts/Prototype.ttf') format('truetype'), url('fonts/Prototype.svg') format('svg');
+}
+
+::selection {
+  background: $primary-color;
+}
+
+body {
+  background: black;
+  text-transform: uppercase;
+  font-family: 'Prototype';
+}
+
+.highcharts-background {
+    fill: transparent;
+}
+
+#googleMap {
+  width: 100%;
+  height: 500px;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.options {
+  text-align: right;
+  margin-top: 1rem;
+}
+
+label {
+	color: white;
+}
+
+body.ps-container:hover > .ps-scrollbar-y-rail:hover > .ps-scrollbar-y,
+body.ps-container > .ps-scrollbar-y-rail > .ps-scrollbar-y,
+body.ps-container.ps-in-scrolling.ps-y > .ps-scrollbar-y-rail > .ps-scrollbar-y {
+    background-color: $primary-color;
+}

@@ -1,0 +1,10 @@
+.filters {
+  max-height: 100%;
+
+  &__tag-name {
+    display: inline-block;
+    vertical-align: super;
+    margin: 0 .2em 0 0.8em;
+  }
+
+}

@@ -1,0 +1,46 @@
+.activities {
+  list-style: none;
+
+  &__item {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px dashed $primary-color;
+    padding: 10px;
+    margin: 1rem 0.2rem;
+    cursor: pointer;
+    color: white;
+
+    &--active {
+      background-color: rgba(255, 255, 255, 1);
+      color: black;
+
+      .activities__tag {
+        color: white;
+      }
+    }
+  }
+
+  &__value {
+    padding: 0;
+  }
+
+  &__number {
+    font-weight: bold;
+    font-size: 1.3rem;
+  }
+
+  &__unit {
+    margin-top: -0.5rem;
+  }
+
+  &__tag {
+    background-color: $primary-color;
+    color: black;
+    margin: 0.3em;
+    border: 1px solid black;
+  }
+
+  &__date {
+    margin: 0 1em;
+    padding: 0.5em;
+  }
+}

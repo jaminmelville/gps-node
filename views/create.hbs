@@ -1,0 +1,80 @@
+<div class='section'>
+  <h3 class='section__title'>Create</h3>
+
+  <div class='section__content'>
+    <div class="row">
+      <div class="small-3 columns">
+        <label for="date" class="text-right middle">Date</label>
+      </div>
+      <div class="small-9 columns">
+        <input id='date' type="datetime-local" name='date'>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-3 columns">
+        <label for="distance" class="text-right middle">Distance</label>
+      </div>
+      <div class="small-9 columns">
+        <input id='distance' type="number" value="0" step="0.1" name="distance" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-3 columns">
+        <label for="minutes" class="text-right middle">Minutes</label>
+      </div>
+      <div class="small-9 columns">
+        <input id='minutes' type="number" value="0" name="minutes" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-3 columns">
+        <label for="seconds" class="text-right middle">Seconds</label>
+      </div>
+      <div class="small-9 columns">
+        <input id='seconds' type="number" min="0" max="60" value="0" name="seconds" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-offset-3 small-9 columns">
+        <input type="submit" name="submit" />
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<script type="text/javascript">
+  function getTimedateLocal() {
+    var now = new Date($.now());
+    var date = now.getDate().toString().length === 1 ? '0' + (now.getDate()).toString() : now.getDate();
+    var year = now.getFullYear();
+    var month = now.getMonth().toString().length === 1 ? '0' + (now.getMonth() + 1).toString() : now.getMonth() + 1;
+    var hours = now.getHours().toString().length === 1 ? '0' + now.getHours().toString() : now.getHours();
+    var minutes = now.getMinutes().toString().length === 1 ? '0' + now.getMinutes().toString() : now.getMinutes();
+    var seconds = now.getSeconds().toString().length === 1 ? '0' + now.getSeconds().toString() : now.getSeconds();
+    var formattedDateTime = year + '-' + month + '-' + date + 'T' + hours + ':' + minutes + ':' + seconds;
+    return formattedDateTime;
+  }
+   $('input[name="date"]').val(getTimedateLocal());
+
+   var dateDifference = new Date(getTimedateLocal()).getTime() - new Date().getTime();
+
+   $('input[name="submit"]').click(function () {
+      var minutes = parseInt($('input[name="minutes"]').val());
+      var seconds = parseInt($('input[name="seconds"]').val());
+      var distance = parseFloat($('input[name="distance"]').val());
+      var date = new Date($('input[name="date"]').val());
+      var activity = {
+        timestamp: parseInt((date.getTime() - dateDifference) / 1000),
+        distance: distance * 1000,
+        elapsed_time: minutes * 60 + seconds
+      }
+      $.post('/api/create', activity, function (url) {
+        location.href = url;
+      });
+   });
+</script>

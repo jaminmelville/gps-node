@@ -1,0 +1,16 @@
+.notes{
+  width:100%;
+  min-height: 200px;
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  padding: 1rem 2rem;
+  line-height: 2rem;
+  
+  &:focus {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  &--busy{
+    cursor: wait;
+  }
+}

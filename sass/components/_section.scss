@@ -1,0 +1,15 @@
+.section {
+  border-bottom: 1px solid white;
+  margin: 2rem 0 1rem;
+
+  &__title {
+    color:$primary-color;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  &__content {
+    margin: 1.5rem 0 2.5rem;
+  }
+
+}
