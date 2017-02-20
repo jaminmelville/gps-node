@@ -1,5 +1,14 @@
 .activities {
   list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+
+  &__wrap {
+    width: 25%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
 
   &__item {
     background-color: rgba(0, 0, 0, 0.3);
@@ -19,8 +28,13 @@
     }
   }
 
+  &__values {
+    display: flex;
+  }
+
   &__value {
     padding: 0;
+    width: 33%;
   }
 
   &__number {

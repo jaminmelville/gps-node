@@ -1,0 +1,12 @@
+@font-face {
+	font-family: 'Prototype';
+	font-style: normal;
+	font-weight: normal;
+	src: url('fonts/Prototype.eot');
+	src: local('☺'), url('fonts/Prototype.svg') format('svg');
+}
+body {
+  background: black;
+  text-transform: uppercase;
+  font-family: 'Prototype';
+}

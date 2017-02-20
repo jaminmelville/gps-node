@@ -1,39 +1,24 @@
-@import 'motion-ui';
-@import 'foundation';
-@import 'settings';
-
-@include motion-ui-transitions();
-@include foundation-everything();
-
+@import 'unit';
+@import 'breakpoint';
 @import 'components/section';
 @import 'components/activities';
 @import 'components/menu';
 @import 'components/stats';
 @import 'components/filters';
+@import 'components/options';
 @import 'components/notes';
 @import 'components/tags';
 @import 'components/laps';
 
-@font-face {
-	font-family: 'Prototype';
-	font-style: normal;
-	font-weight: normal;
-	src: url('fonts/Prototype.eot');
-	src: local('☺'), url('fonts/Prototype.woff') format('woff'), url('fonts/Prototype.ttf') format('truetype'), url('fonts/Prototype.svg') format('svg');
+a{
+	text-decoration: none;
+}
+.highcharts-background {
+    fill: transparent;
 }
 
 ::selection {
   background: $primary-color;
-}
-
-body {
-  background: black;
-  text-transform: uppercase;
-  font-family: 'Prototype';
-}
-
-.highcharts-background {
-    fill: transparent;
 }
 
 #googleMap {

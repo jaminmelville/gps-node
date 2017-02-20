@@ -2,4 +2,22 @@
   list-style: none;
   color: white;
   line-height: 2rem;
+  padding: 0;
+
+  &__row {
+    display: flex;
+    justify-content: flex-start
+  }
+
+  &__distance {
+    width: 25%;
+    text-align: right;
+    padding-right: 10px;
+  }
+
+  &__value {
+    width: 25%;
+    padding-left: 10px;
+  }
+
 }

@@ -1,38 +1,56 @@
 {
-  "name": "gps-node",
-  "version": "0.0.0",
-  "description": "A gps web app for FIT files",
-  "main": "server.js",
+  "name": "gpsmeteor",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "meteor run",
+    "lint": "eslint .",
+    "pretest": "npm run lint --silent"
   },
-  "author": "Ben Melville",
-  "license": "BSD-2-Clause",
   "dependencies": {
-    "async": "^1.5.1",
-    "body-parser": "~1.13.1",
-    "bower-installer": "^1.2.0",
-    "cookie-parser": "^1.4.3",
-    "express": "~4.12.4",
-    "hbs": "^4.0.0",
-    "jade": "~1.11.0",
-    "mysql": "^2.10.0",
-    "react": "^0.14.5",
-    "react-dom": "^0.14.5",
-    "squel": "^5.0.4",
-    "usb": "^1.1.2"
+    "babel-runtime": "^6.18.0",
+    "fs": "0.0.1-security",
+    "google-maps": "^3.2.1",
+    "highcharts": "^5.0.7",
+    "indexof": "0.0.1",
+    "meteor-node-stubs": "~0.2.0",
+    "rc-slider": "^6.1.0",
+    "react": "^15.4.2",
+    "react-addons-pure-render-mixin": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-router": "^3.0.2",
+    "react-slider": "^0.7.0",
+    "usb": "^1.2.0"
   },
   "devDependencies": {
-    "babel-plugin-transform-es2015-modules-umd": "^6.8.0",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-es2016": "^6.0.11",
-    "babel-preset-react": "^6.3.13",
-    "babelify": "^7.2.0",
-    "browser-sync": "^2.11.0",
-    "gulp": "^3.9.0",
-    "gulp-babel": "^6.1.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-sass": "^2.1.1",
-    "gulp-sourcemaps": "^1.6.0"
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-import-resolver-meteor": "^0.3.4",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-meteor": "^4.0.1",
+    "eslint-plugin-react": "^6.9.0",
+    "node-debugger": "^1.0.0"
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "allowImportExportEverywhere": true
+    },
+    "plugins": [
+      "meteor"
+    ],
+    "extends": [
+      "airbnb",
+      "plugin:meteor/recommended"
+    ],
+    "settings": {
+      "import/resolver": "meteor",
+      "import/core-modules": [
+        "meteor/meteor",
+        "meteor/mongo"
+      ]
+    },
+    "rules": {}
   }
 }

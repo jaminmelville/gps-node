@@ -4,7 +4,11 @@
   &--white a{
     color: white;
   }
-  
+
+  &__item {
+    display: inline-block;
+    padding: 0 20px;
+  }
   @include breakpoint(small only) {
     text-align: center;
     float: none;

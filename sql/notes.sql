@@ -1,2 +1,0 @@
-ALTER TABLE Activity
-ADD note TEXT DEFAULT '';
