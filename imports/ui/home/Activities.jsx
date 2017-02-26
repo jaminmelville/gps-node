@@ -1,6 +1,7 @@
 import React from "react";
 import { weekday, zeroPad } from "../../../lib/util.js";
 import { Link } from "react-router"
+import Tag from '../Tag';
 
 export default class Activities extends React.Component {
 
@@ -13,7 +14,7 @@ export default class Activities extends React.Component {
       const speed = activity.getSpeed();
       const tags = activity.tags.map((tag) => {
         return (
-          <span className="activities__tag label" key={tag}>{tag}</span>
+          <Tag name={tag} key={tag} />
         );
       });
 

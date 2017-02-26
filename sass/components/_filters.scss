@@ -14,4 +14,18 @@
   &__range {
   }
 
+  &__tags {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+
+  &__tag {
+    background-color: $primary-color;
+    color: black;
+    margin: 0.3em;
+    border: 1px solid black;
+    padding: 0.1em 0.2em;
+  }
 }

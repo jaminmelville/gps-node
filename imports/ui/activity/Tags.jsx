@@ -1,7 +1,8 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Records } from '../../api/records.js';
+import { Records } from '../../api/records';
+import Tag from '../Tag';
 
 class Tags extends React.PureComponent {
 
@@ -18,7 +19,7 @@ class Tags extends React.PureComponent {
   }
 
   addTag(tag) {
-    Records.update({ _id: this.props.session._id }, { $push: { tags: tag } });
+    Records.update({ _id: this.props.session._id }, { $addToSet: { tags: tag } });
   }
 
   render() {
@@ -34,20 +35,17 @@ class Tags extends React.PureComponent {
       });
       return res;
     }, []);
-    const tagNodes = allTags.map((tag) => {
-      const onClick = (e) => {
-        if (e.target.checked) {
-          this.addTag(tag);
-        } else {
+    const tagNodes = allTags.sort().map((tag) => {
+      const state = this.props.session.tags.indexOf(tag) >= 0 ? 1 : 0;
+      const onClick = () => {
+        if (state) {
           this.removeTag(tag);
+        } else {
+          this.addTag(tag);
         }
       };
-      const checked = this.props.session.tags.indexOf(tag) >= 0;
       return (
-        <div className="tags__item" key={tag}>
-          <input type="checkbox" onChange={onClick} checked={checked} />
-          {tag}
-        </div>
+        <Tag name={tag} key={tag} onClick={onClick} state={state} />
       );
     });
     const createTag = (event) => {
@@ -59,7 +57,7 @@ class Tags extends React.PureComponent {
     return (
       <div className="row tags">
         {tagNodes}
-        Add new: <input type="text" onKeyUp={createTag} />
+        <input type="text" onKeyUp={createTag} placeholder="add tag.." />
       </div>
     );
   }

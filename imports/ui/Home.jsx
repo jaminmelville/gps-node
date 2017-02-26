@@ -19,21 +19,21 @@ class Home extends React.Component {
 
   render() {
     if (this.props.loading) {
-      return (<div>Loading..</div>)
+      return (<div>Loading..</div>);
     }
     function changeTheme(theme) {
       Session.setPersistent("theme", theme);
     }
 
     let newActivities = '';
-    if (this.props.newActivities) {
+    if (this.props.newSessions.length) {
       newActivities = (
         <Section title="New">
-          <Activities activities={this.props.newActivities} />
+          <Activities activities={this.props.newSessions} />
         </Section>
       );
     }
-        // {newActivities}
+
     const sections = (
       <div>
         <Section title="Stats">
@@ -42,6 +42,7 @@ class Home extends React.Component {
         <Section title="Chart">
           <Chart activities={this.props.sessions} />
         </Section>
+        {newActivities}
         <Section title="Activities">
           <Activities activities={this.props.sessions} />
         </Section>
@@ -52,6 +53,9 @@ class Home extends React.Component {
       { name: 'Pink', value: 'pink', onClick: changeTheme },
       { name: 'Green', value: 'green', onClick: changeTheme },
       { name: 'Blue', value: 'blue', onClick: changeTheme },
+      { name: 'Purple', value: 'purple', onClick: changeTheme },
+      { name: 'Orange', value: 'orange', onClick: changeTheme },
+      { name: 'Red', value: 'red', onClick: changeTheme },
     ];
     return (
       <Layout>
@@ -71,6 +75,7 @@ Home.propTypes = {
 
 export default createContainer(() => {
   const sessionsHandle = Meteor.subscribe('sessions');
+  Meteor.subscribe('theme', { theme: Session.get('theme') });
   const filters = Session.get('filters');
   const tgt = ((new Date(filters.date.start)).getTime() / 1000) - SECONDS_SINCE_1990;
   const tlt = ((new Date(filters.date.end)).getTime() / 1000) - SECONDS_SINCE_1990;
@@ -93,18 +98,17 @@ export default createContainer(() => {
       $gt: tgt,
       $lt: tlt,
     },
+    tags: { $ne: [] },
   };
-  const tagQuery = {};
   if (includeTags.length) {
-    tagQuery.$all = includeTags;
-    query.tags = tagQuery;
+    query.tags.$all = includeTags;
   }
   if (excludeTags.length) {
-    tagQuery.$not = { $in: excludeTags };
-    query.tags = tagQuery;
+    query.tags.$not = { $in: excludeTags };
   }
   return {
     sessions: Records.find(query, { sort: [['timestamp', 'desc']] }).fetch(),
-    loading
+    loading,
+    newSessions: Records.find({ tags: [], type: 'session' }, { sort: [['timestamp', 'desc']] }).fetch()
   };
 }, Home);

@@ -1,14 +1,15 @@
-.blue {
-  $primary-color: #5ACBE4;
-  @import 'base';
-}
+$colors: (
+  blue: #22c6bb,
+  green: #98c25c,
+  pink: #e16d92,
+  purple: #8b5cd6,
+  orange: #f2813a,
+  red: #ce2e33
+);
 
-.green {
-  $primary-color: #709C00;
-  @import 'base';
-}
-
-.pink {
-  $primary-color: #ff50d3;
-  @import 'base';
+@each $class, $color in $colors {
+  .#{$class} {
+    $primary-color: #{$color};
+    @import 'base';
+  }
 }

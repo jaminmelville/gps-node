@@ -5,7 +5,8 @@ import { createContainer } from 'meteor/react-meteor-data';
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { Records } from '../api/records';
-import Layout from './Layout.jsx';
+import Layout from './Layout';
+import Tag from './Tag';
 
 class Filters extends React.Component {
 
@@ -37,10 +38,10 @@ class Filters extends React.Component {
     };
 
     const stepSize = 0.1;
-    const tags = this.props.tags.map((tag) => {
-      const state = (tag in filters.tags) ? filters.tags[tag] : '';
+    const tags = this.props.tags.sort().map((tag) => {
+      const state = (tag in filters.tags) ? filters.tags[tag] : 'ignore';
       const onClick = () => {
-        if (state === '') {
+        if (state === 'ignore') {
           filters.tags[tag] = 'include';
         } else if (state === 'include') {
           filters.tags[tag] = 'exclude';
@@ -49,8 +50,13 @@ class Filters extends React.Component {
         }
         Session.setPersistent('filters', filters);
       }
+      const states = {
+        'include': 1,
+        'exclude': -1,
+        'ignore': 0,
+      }
       return (
-        <li key={tag} onClick={onClick}>{tag}({state})</li>
+        <Tag name={tag} key={tag} onClick={onClick} state={states[state]} />
       );
     })
     return (
@@ -94,7 +100,7 @@ class Filters extends React.Component {
           </div>
           <div>
             <h2>Tags</h2>
-            <ul>
+            <ul className="filters__tags">
               {tags}
             </ul>
           </div>

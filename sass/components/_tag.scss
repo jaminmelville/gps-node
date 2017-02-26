@@ -1,0 +1,39 @@
+.tag {
+  color: white;
+  background-color: black;
+  display: inline-flex;
+  border: 1px solid $primary-color;
+  margin: 0.2em;
+  transition: border 0.5s;
+
+  &__name {
+    text-transform: uppercase;
+    padding: 0 0.2em;
+    transition: color 0.5s;
+  }
+
+  &__state {
+    border-left: 1px solid $primary-color;
+    padding: 0 0.2em;
+    transition: border, color 0.5s;
+  }
+
+
+  &--clickable:hover {
+    cursor: pointer;
+    border-color: white;
+
+    .tag__name {
+      color: $primary-color;
+    }
+
+    .tag__state {
+      display: inline;
+      color: black;
+      border-color: white;
+      background-color: white;
+      padding: 0 0.2em;
+    }
+  }
+
+}
