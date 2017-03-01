@@ -3,7 +3,6 @@ import { Session } from 'meteor/session';
 import Options from '../Options';
 import HighChart from '../HighChart';
 import { getDistance, colors } from '../../../lib/util';
-import Maps from '../../../lib/client/maps';
 
 export default class Chart extends React.Component {
 
@@ -11,8 +10,6 @@ export default class Chart extends React.Component {
     super(props, context);
     this.state = {
       type: 'speed',
-      google: false,
-      elevations: [],
     };
     this.onOptionClick = this.onOptionClick.bind(this);
     this.units = {
@@ -22,28 +19,6 @@ export default class Chart extends React.Component {
       elevation: 'm',
     };
     this.getChartOptions = this.getChartOptions.bind(this);
-  }
-
-  componentDidMount() {
-    Maps((google) => {
-      // @TODO: need to limit number of locations to request or else no result.
-      const elevator = new google.maps.ElevationService();
-      const locations = this.props.records.reduce((result, record) => {
-        if (record.type === 'record') {
-          result.push(new google.maps.LatLng(
-            record.getLat(),
-            record.getLong(),
-          ));
-        }
-        return result;
-      }, []);
-      elevator.getElevationForLocations({
-        locations,
-      }, (results) => {
-        this.setState({ elevations: results });
-      },
-    );
-    });
   }
 
   onOptionClick(value) {
@@ -56,9 +31,8 @@ export default class Chart extends React.Component {
     let totalTime = 0;
     let previousLocation = false;
     const startTime = this.props.records[0].timestamp;
-    const elevations = this.state.elevations;
 
-    this.props.records.forEach((record) => {
+    this.props.records.forEach((record, index) => {
       switch (record.type) {
         case 'record':
           if (previousLocation) {
@@ -72,13 +46,13 @@ export default class Chart extends React.Component {
               speed,
               'average speed': (totalDistance / totalTime) * 3.6,
               distance: totalDistance / 1000,
-              elevation: (elevations && elevations.length) ? elevations.splice(0, 1)[0].elevation : 0,
+              elevation: record.elevation ? record.elevation : 0,
             });
           }
           previousLocation = record;
           break;
         case 'event':
-          if (record.event_type === 0) {
+          if (record.event_type === 0 && index !== 0) {
             // start..
             data.push({
               time: (record.timestamp - startTime) / 60,
@@ -87,7 +61,7 @@ export default class Chart extends React.Component {
               distance: 0,
               elevation: 0,
             });
-          } else if (record.event_type === 4) {
+          } else if (record.event_type === 4 && index !== this.props.records.length - 1) {
             // stop..
             data.push({
               time: (record.timestamp - startTime) / 60,

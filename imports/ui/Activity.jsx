@@ -21,9 +21,17 @@ class Activity extends React.Component {
     if (this.props.loading || !this.props.session) {
       return (<div>loading...</div>);
     }
+
+    const verticalMeters = this.props.records.reduce((sum, record, index) => {
+      if (index > 0) {
+        sum += Math.abs(record.elevation - this.props.records[index - 1].elevation);
+      }
+      return sum
+    }, 0);
+
     const sections = [
       <Section title="Stats" key="1">
-        <Stats session={this.props.session} />
+        <Stats session={this.props.session} verticalMeters={verticalMeters} />
       </Section>,
       <Section title="Tags" tags={this.props.tags} key="2">
         <Tags session={this.props.session} />

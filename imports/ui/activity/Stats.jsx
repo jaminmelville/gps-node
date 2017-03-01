@@ -10,20 +10,18 @@ export default class Stats extends React.Component {
     const speed = this.props.session.getSpeed();
     const calories = this.props.session.total_calories;
     const date = this.props.session.getDate();
+    const paused = elapsed_time - timer_time;
+    const secondsPerKm = timer_time / distance;
 
     return (
       <div className="stats">
         <div className="stats__row">
-          <div className="stats__property">Date</div>
-          <div className="stats__value">{date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()}</div>
-        </div>
-        <div className="stats__row">
-          <div className="stats__property">Day</div>
-          <div className="stats__value">{weekday[date.getDay()]}</div>
-        </div>
-        <div className="stats__row">
-          <div className="stats__property">Time</div>
-          <div className="stats__value">{date.getHours()}:{zeroPad(date.getMinutes(), 2)}</div>
+          <div className="stats__property">Start</div>
+          <div className="stats__value">
+            {date.getHours()}:{zeroPad(date.getMinutes(), 2)}
+            &nbsp;{weekday[date.getDay()]}&nbsp;
+            {date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()}
+          </div>
         </div>
         <div className="stats__row">
           <div className="stats__property">Distance</div>
@@ -34,20 +32,19 @@ export default class Stats extends React.Component {
           <div className="stats__value">{calories}</div>
         </div>
         <div className="stats__row">
-          <div className="stats__property">Elapsed</div>
-          <div className="stats__value">{parseInt((elapsed_time) / 60)}M {parseInt(elapsed_time % 60)}S</div>
-        </div>
-        <div className="stats__row">
-          <div className="stats__property">Timer</div>
-          <div className="stats__value">{parseInt((timer_time) / 60)}M {parseInt(timer_time % 60)}S</div>
-        </div>
-        <div className="stats__row">
-          <div className="stats__property">Pause</div>
-          <div className="stats__value">{parseInt((elapsed_time - timer_time) / 60)}M {parseInt((elapsed_time - timer_time) % 60)}S</div>
+          <div className="stats__property">Duration</div>
+          <div className="stats__value">
+            {parseInt((timer_time) / 60)}M {parseInt(timer_time % 60)}S
+            {paused > 0 ? ' ( +' + parseInt((paused) / 60) + 'M ' + parseInt(paused % 60) + 'S Paused )' : null}
+          </div>
         </div>
         <div className="stats__row">
           <div className="stats__property">Speed</div>
-          <div className="stats__value">{speed.toFixed(2)} km/h</div>
+          <div className="stats__value">{speed.toFixed(2)} km/h ( {parseInt(secondsPerKm / 60)}M {(secondsPerKm % 60).toFixed(2)} min/km )</div>
+        </div>
+        <div className="stats__row">
+          <div className="stats__property">Vertical distance</div>
+          <div className="stats__value">{this.props.verticalMeters.toFixed(2)} m</div>
         </div>
       </div>
     );

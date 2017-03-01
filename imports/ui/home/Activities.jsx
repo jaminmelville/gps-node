@@ -6,18 +6,24 @@ import Tag from '../Tag';
 export default class Activities extends React.Component {
 
   render() {
+    if (this.props.activities.length === 0) {
+      return (<div>Loading..</div>);
+    }
     const activityNodes = this.props.activities.map((activity) => {
       const distance = activity.getKms();
       const date = activity.getDate();
       const minutes = parseInt(activity.getElapsedTime() / 60);
       const seconds = parseInt(activity.getElapsedTime()) % 60;
       const speed = activity.getSpeed();
-      const tags = activity.tags.map((tag) => {
-        return (
-          <Tag name={tag} key={tag} />
-        );
-      });
-
+      let tags;
+      // @TODO: Find out how activity.tags can be null.
+      if (activity.tags) {
+        tags = activity.tags.map((tag) => {
+          return (
+            <Tag name={tag} key={tag} />
+          );
+        });
+      }
       return (
         <li className="activities__wrap" key={activity._id}>
           <Link to={"/activity/" + encodeURIComponent(activity.activity_id)}>
@@ -57,3 +63,7 @@ export default class Activities extends React.Component {
   }
 
 }
+
+Activities.propTypes = {
+  activities: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+};

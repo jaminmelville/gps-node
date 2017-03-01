@@ -1,6 +1,5 @@
 import { Meteor } from 'meteor/meteor';
 import { Records } from '../imports/api/records';
-
 import '../imports/startup/server';
 
 Meteor.publish('records', (id) => {
